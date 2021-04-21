@@ -21,6 +21,7 @@ var rinkeby_json_1 = __importDefault(require("./rinkeby.json"));
 var kovan_json_1 = __importDefault(require("./kovan.json"));
 var goerli_json_1 = __importDefault(require("./goerli.json"));
 var yolov3_json_1 = __importDefault(require("./yolov3.json"));
+var sbr_json_1 = __importDefault(require("./sbr.json"));
 /**
  * @hidden
  */
@@ -33,6 +34,7 @@ function _getInitializedChains(customChains) {
         '42': 'kovan',
         '5': 'goerli',
         '34180983699157880': 'yolov3',
+        '8675309': 'sbr'
     };
     var chains = {
         mainnet: mainnet_json_1.default,
@@ -41,6 +43,7 @@ function _getInitializedChains(customChains) {
         kovan: kovan_json_1.default,
         goerli: goerli_json_1.default,
         yolov3: yolov3_json_1.default,
+        sbr: sbr_json_1.default
     };
     if (customChains) {
         try {

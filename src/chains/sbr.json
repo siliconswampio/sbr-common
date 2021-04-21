@@ -1,0 +1,67 @@
+{
+  "name": "sbr",
+  "chainId": 8675309,
+  "networkId": 8675309,
+  "defaultHardfork": "istanbul",
+  "consensus": {
+      "type": "pow",
+      "algorithm": "ethash",
+      "ethash": {}        
+  },
+  "comment": "SBR network",
+  "url": "",
+  "genesis": {
+      "hash": "0xd13aef9f2e4ae5dbe4819ca40e6b1ad4909b14c11b01f268fae60a9721aaa825",
+      "timestamp": 0,
+      "gasLimit": 8000000,
+      "difficulty": 1,
+      "nonce": "0x0000000000000142",
+      "extraData": "0x",
+      "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+  },  
+  "hardforks": [
+      {
+          "name": "chainstart",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"          
+      },
+      {
+          "name": "homestead",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"          
+      },
+      {
+          "name": "byzantium",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"
+      },
+      {
+          "name": "constantinople",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"
+      },
+      {
+          "name": "petersburg",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"
+      },
+      {
+          "name": "istanbul",
+          "block": 0,
+          "forkHash": "0x97ba7ec4"
+      },   
+      {
+          "name": "next",
+          "block": 99999999999            
+      }
+  ],
+  "bootstrapNodes": [   
+       {
+          "ip": "23.239.16.8",
+          "port": 30303,
+          "id": "f82485bd134db0c715b49f801d00aa7457f740032a582ba84c2711d076981b3e8e68b6eec81d421bebe2c5e3737762f6d0e1f1ab6a44d0f4805b4d427b133764",
+          "location": "",
+          "comment": ""
+      }   
+  ]
+}
