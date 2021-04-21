@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const events_1 = require("events");
 const crc_32_1 = require("crc-32");
-const ethereumjs_util_1 = require("ethereumjs-util");
+const sbr_util_1 = require("sbr-util");
 const chains_1 = require("./chains");
 const hardforks_1 = require("./hardforks");
 const eips_1 = require("./eips");
@@ -52,7 +52,7 @@ class Common extends events_1.EventEmitter {
     }
     static _getChainParams(chain, customChains) {
         const initializedChains = chains_1._getInitializedChains(customChains);
-        if (typeof chain === 'number' || ethereumjs_util_1.BN.isBN(chain)) {
+        if (typeof chain === 'number' || sbr_util_1.BN.isBN(chain)) {
             chain = chain.toString();
             if (initializedChains['names'][chain]) {
                 const name = initializedChains['names'][chain];
@@ -72,7 +72,7 @@ class Common extends events_1.EventEmitter {
      * @returns The dictionary with parameters set as chain
      */
     setChain(chain) {
-        if (typeof chain === 'number' || typeof chain === 'string' || ethereumjs_util_1.BN.isBN(chain)) {
+        if (typeof chain === 'number' || typeof chain === 'string' || sbr_util_1.BN.isBN(chain)) {
             this._chainParams = Common._getChainParams(chain, this._customChains);
         }
         else if (typeof chain === 'object') {
@@ -120,14 +120,14 @@ class Common extends events_1.EventEmitter {
      * @returns The name of the HF
      */
     getHardforkByBlockNumber(blockNumber) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         let hardfork = 'chainstart';
         for (const hf of this.hardforks()) {
             // Skip comparison for not applied HFs
             if (hf.block === null) {
                 continue;
             }
-            if (blockNumber.gte(new ethereumjs_util_1.BN(hf.block))) {
+            if (blockNumber.gte(new sbr_util_1.BN(hf.block))) {
                 hardfork = hf.name;
             }
         }
@@ -139,7 +139,7 @@ class Common extends events_1.EventEmitter {
      * @returns The name of the HF set
      */
     setHardforkByBlockNumber(blockNumber) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         const hardfork = this.getHardforkByBlockNumber(blockNumber);
         this.setHardfork(hardfork);
         return hardfork;
@@ -332,7 +332,7 @@ class Common extends events_1.EventEmitter {
      */
     hardforkIsActiveOnBlock(hardfork, blockNumber, opts = {}) {
         var _a;
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         const onlySupported = (_a = opts.onlySupported) !== null && _a !== void 0 ? _a : false;
         hardfork = this._chooseHardfork(hardfork, onlySupported);
         const hfBlock = this.hardforkBlockBN(hardfork);
@@ -445,7 +445,7 @@ class Common extends events_1.EventEmitter {
      * @deprecated Please use hardforkBlockBN() for large number support
      */
     hardforkBlock(hardfork) {
-        return ethereumjs_util_1.toType(this.hardforkBlockBN(hardfork), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.hardforkBlockBN(hardfork), sbr_util_1.TypeOutput.Number);
     }
     /**
      * Returns the hardfork change block for hardfork provided or set
@@ -454,7 +454,7 @@ class Common extends events_1.EventEmitter {
      */
     hardforkBlockBN(hardfork) {
         hardfork = this._chooseHardfork(hardfork, false);
-        return new ethereumjs_util_1.BN(this._getHardfork(hardfork)['block']);
+        return new sbr_util_1.BN(this._getHardfork(hardfork)['block']);
     }
     /**
      * True if block number provided is the hardfork (given or set) change block
@@ -463,7 +463,7 @@ class Common extends events_1.EventEmitter {
      * @returns True if blockNumber is HF block
      */
     isHardforkBlock(blockNumber, hardfork) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         hardfork = this._chooseHardfork(hardfork, false);
         return this.hardforkBlockBN(hardfork).eq(blockNumber);
     }
@@ -475,7 +475,7 @@ class Common extends events_1.EventEmitter {
      */
     nextHardforkBlock(hardfork) {
         const block = this.nextHardforkBlockBN(hardfork);
-        return block === null ? null : ethereumjs_util_1.toType(block, ethereumjs_util_1.TypeOutput.Number);
+        return block === null ? null : sbr_util_1.toType(block, sbr_util_1.TypeOutput.Number);
     }
     /**
      * Returns the change block for the next hardfork after the hardfork provided or set
@@ -490,7 +490,7 @@ class Common extends events_1.EventEmitter {
         // a block greater than the current hfBlock set the accumulator,
         // pass on the accumulator as the final result from this time on
         const nextHfBlock = this.hardforks().reduce((acc, hf) => {
-            const block = new ethereumjs_util_1.BN(hf.block);
+            const block = new sbr_util_1.BN(hf.block);
             return block.gt(hfBlock) && acc === null ? block : acc;
         }, null);
         return nextHfBlock;
@@ -502,7 +502,7 @@ class Common extends events_1.EventEmitter {
      * @returns True if blockNumber is HF block
      */
     isNextHardforkBlock(blockNumber, hardfork) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         hardfork = this._chooseHardfork(hardfork, false);
         const nextHardforkBlock = this.nextHardforkBlockBN(hardfork);
         return nextHardforkBlock === null ? false : nextHardforkBlock.eq(blockNumber);
@@ -602,14 +602,14 @@ class Common extends events_1.EventEmitter {
      * @deprecated Please use chainIdBN() for large number support
      */
     chainId() {
-        return ethereumjs_util_1.toType(this.chainIdBN(), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.chainIdBN(), sbr_util_1.TypeOutput.Number);
     }
     /**
      * Returns the Id of current chain
      * @returns chain Id
      */
     chainIdBN() {
-        return new ethereumjs_util_1.BN(this._chainParams['chainId']);
+        return new sbr_util_1.BN(this._chainParams['chainId']);
     }
     /**
      * Returns the name of current chain
@@ -624,14 +624,14 @@ class Common extends events_1.EventEmitter {
      * @deprecated Please use networkIdBN() for large number support
      */
     networkId() {
-        return ethereumjs_util_1.toType(this.networkIdBN(), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.networkIdBN(), sbr_util_1.TypeOutput.Number);
     }
     /**
      * Returns the Id of current network
      * @returns network Id
      */
     networkIdBN() {
-        return new ethereumjs_util_1.BN(this._chainParams['networkId']);
+        return new sbr_util_1.BN(this._chainParams['networkId']);
     }
     /**
      * Returns the active EIPs

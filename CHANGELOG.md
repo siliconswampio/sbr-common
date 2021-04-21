@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 This `Common` release comes with full support for the `berlin` hardfork. Please note that the default HF is still set to `istanbul`. You therefore need to explicitly set the `hardfork` parameter for instantiating a `Common` instance with a `berlin` HF activated:
 
 ```typescript
-import Common from '@ethereumjs/common'
+import Common from '@sbr/common'
 const common = new Common({ chain: 'mainnet', hardfork: 'berlin' })
 ```
 
@@ -207,7 +207,7 @@ Packages now target `ES2017` for Node.js builds (the `main` entrypoint from `pac
 - Added consensus information to chains, new functions `Common.consensusType()` for consensus type access ("pow" or "poa") and `Common.consensusAlgorithm()` to get the associated algorithm or protocol (e.g. "ethash" PoW algorithm or "clique" PoA protocol), see PR [#937](https://github.com/ethereumjs/ethereumjs-monorepo/pull/937)
 - Removed old `consensus` and `finality` fields, PR [#758](https://github.com/ethereumjs/ethereumjs-monorepo/pull/758)
 - Removed old `casper` and `sharding` fields, PR [#762](https://github.com/ethereumjs/ethereumjs-monorepo/pull/762)
-- Updated `ethereumjs-util` to v7, PR [#748](https://github.com/ethereumjs/ethereumjs-monorepo/pull/748)
+- Updated `sbr-util` to v7, PR [#748](https://github.com/ethereumjs/ethereumjs-monorepo/pull/748)
 
 ## 2.0.0-rc.1 2020-11-19
 
@@ -319,7 +319,7 @@ in performance benefits for Node.js consumers, see [here](https://github.com/eth
   PR [#758](https://github.com/ethereumjs/ethereumjs-monorepo/pull/758)
 - Removed old `casper` and `sharding` fields,
   PR [#762](https://github.com/ethereumjs/ethereumjs-monorepo/pull/762)
-- Updated `ethereumjs-util` to v7,
+- Updated `sbr-util` to v7,
   PR [#748](https://github.com/ethereumjs/ethereumjs-monorepo/pull/748)
 
 ## 1.5.2 - 2020-07-26

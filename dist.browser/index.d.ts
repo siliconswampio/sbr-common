@@ -1,7 +1,7 @@
 /// <reference types="bn.js" />
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import { BN, BNLike } from 'ethereumjs-util';
+import { BN, BNLike } from 'sbr-util';
 import { Chain } from './types';
 /**
  * Options for instantiating a [[Common]] instance.

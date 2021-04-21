@@ -37,7 +37,7 @@ var __values = (this && this.__values) || function(o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var events_1 = require("events");
 var crc_32_1 = require("crc-32");
-var ethereumjs_util_1 = require("ethereumjs-util");
+var sbr_util_1 = require("sbr-util");
 var chains_1 = require("./chains");
 var hardforks_1 = require("./hardforks");
 var eips_1 = require("./eips");
@@ -89,7 +89,7 @@ var Common = /** @class */ (function (_super) {
     };
     Common._getChainParams = function (chain, customChains) {
         var initializedChains = chains_1._getInitializedChains(customChains);
-        if (typeof chain === 'number' || ethereumjs_util_1.BN.isBN(chain)) {
+        if (typeof chain === 'number' || sbr_util_1.BN.isBN(chain)) {
             chain = chain.toString();
             if (initializedChains['names'][chain]) {
                 var name_1 = initializedChains['names'][chain];
@@ -110,7 +110,7 @@ var Common = /** @class */ (function (_super) {
      */
     Common.prototype.setChain = function (chain) {
         var e_1, _a;
-        if (typeof chain === 'number' || typeof chain === 'string' || ethereumjs_util_1.BN.isBN(chain)) {
+        if (typeof chain === 'number' || typeof chain === 'string' || sbr_util_1.BN.isBN(chain)) {
             this._chainParams = Common._getChainParams(chain, this._customChains);
         }
         else if (typeof chain === 'object') {
@@ -180,7 +180,7 @@ var Common = /** @class */ (function (_super) {
      */
     Common.prototype.getHardforkByBlockNumber = function (blockNumber) {
         var e_3, _a;
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         var hardfork = 'chainstart';
         try {
             for (var _b = __values(this.hardforks()), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -189,7 +189,7 @@ var Common = /** @class */ (function (_super) {
                 if (hf.block === null) {
                     continue;
                 }
-                if (blockNumber.gte(new ethereumjs_util_1.BN(hf.block))) {
+                if (blockNumber.gte(new sbr_util_1.BN(hf.block))) {
                     hardfork = hf.name;
                 }
             }
@@ -209,7 +209,7 @@ var Common = /** @class */ (function (_super) {
      * @returns The name of the HF set
      */
     Common.prototype.setHardforkByBlockNumber = function (blockNumber) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         var hardfork = this.getHardforkByBlockNumber(blockNumber);
         this.setHardfork(hardfork);
         return hardfork;
@@ -486,7 +486,7 @@ var Common = /** @class */ (function (_super) {
     Common.prototype.hardforkIsActiveOnBlock = function (hardfork, blockNumber, opts) {
         var _a;
         if (opts === void 0) { opts = {}; }
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         var onlySupported = (_a = opts.onlySupported) !== null && _a !== void 0 ? _a : false;
         hardfork = this._chooseHardfork(hardfork, onlySupported);
         var hfBlock = this.hardforkBlockBN(hardfork);
@@ -636,7 +636,7 @@ var Common = /** @class */ (function (_super) {
      * @deprecated Please use hardforkBlockBN() for large number support
      */
     Common.prototype.hardforkBlock = function (hardfork) {
-        return ethereumjs_util_1.toType(this.hardforkBlockBN(hardfork), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.hardforkBlockBN(hardfork), sbr_util_1.TypeOutput.Number);
     };
     /**
      * Returns the hardfork change block for hardfork provided or set
@@ -645,7 +645,7 @@ var Common = /** @class */ (function (_super) {
      */
     Common.prototype.hardforkBlockBN = function (hardfork) {
         hardfork = this._chooseHardfork(hardfork, false);
-        return new ethereumjs_util_1.BN(this._getHardfork(hardfork)['block']);
+        return new sbr_util_1.BN(this._getHardfork(hardfork)['block']);
     };
     /**
      * True if block number provided is the hardfork (given or set) change block
@@ -654,7 +654,7 @@ var Common = /** @class */ (function (_super) {
      * @returns True if blockNumber is HF block
      */
     Common.prototype.isHardforkBlock = function (blockNumber, hardfork) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         hardfork = this._chooseHardfork(hardfork, false);
         return this.hardforkBlockBN(hardfork).eq(blockNumber);
     };
@@ -666,7 +666,7 @@ var Common = /** @class */ (function (_super) {
      */
     Common.prototype.nextHardforkBlock = function (hardfork) {
         var block = this.nextHardforkBlockBN(hardfork);
-        return block === null ? null : ethereumjs_util_1.toType(block, ethereumjs_util_1.TypeOutput.Number);
+        return block === null ? null : sbr_util_1.toType(block, sbr_util_1.TypeOutput.Number);
     };
     /**
      * Returns the change block for the next hardfork after the hardfork provided or set
@@ -681,7 +681,7 @@ var Common = /** @class */ (function (_super) {
         // a block greater than the current hfBlock set the accumulator,
         // pass on the accumulator as the final result from this time on
         var nextHfBlock = this.hardforks().reduce(function (acc, hf) {
-            var block = new ethereumjs_util_1.BN(hf.block);
+            var block = new sbr_util_1.BN(hf.block);
             return block.gt(hfBlock) && acc === null ? block : acc;
         }, null);
         return nextHfBlock;
@@ -693,7 +693,7 @@ var Common = /** @class */ (function (_super) {
      * @returns True if blockNumber is HF block
      */
     Common.prototype.isNextHardforkBlock = function (blockNumber, hardfork) {
-        blockNumber = ethereumjs_util_1.toType(blockNumber, ethereumjs_util_1.TypeOutput.BN);
+        blockNumber = sbr_util_1.toType(blockNumber, sbr_util_1.TypeOutput.BN);
         hardfork = this._chooseHardfork(hardfork, false);
         var nextHardforkBlock = this.nextHardforkBlockBN(hardfork);
         return nextHardforkBlock === null ? false : nextHardforkBlock.eq(blockNumber);
@@ -804,14 +804,14 @@ var Common = /** @class */ (function (_super) {
      * @deprecated Please use chainIdBN() for large number support
      */
     Common.prototype.chainId = function () {
-        return ethereumjs_util_1.toType(this.chainIdBN(), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.chainIdBN(), sbr_util_1.TypeOutput.Number);
     };
     /**
      * Returns the Id of current chain
      * @returns chain Id
      */
     Common.prototype.chainIdBN = function () {
-        return new ethereumjs_util_1.BN(this._chainParams['chainId']);
+        return new sbr_util_1.BN(this._chainParams['chainId']);
     };
     /**
      * Returns the name of current chain
@@ -826,14 +826,14 @@ var Common = /** @class */ (function (_super) {
      * @deprecated Please use networkIdBN() for large number support
      */
     Common.prototype.networkId = function () {
-        return ethereumjs_util_1.toType(this.networkIdBN(), ethereumjs_util_1.TypeOutput.Number);
+        return sbr_util_1.toType(this.networkIdBN(), sbr_util_1.TypeOutput.Number);
     };
     /**
      * Returns the Id of current network
      * @returns network Id
      */
     Common.prototype.networkIdBN = function () {
-        return new ethereumjs_util_1.BN(this._chainParams['networkId']);
+        return new sbr_util_1.BN(this._chainParams['networkId']);
     };
     /**
      * Returns the active EIPs

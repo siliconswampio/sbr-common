@@ -1,4 +1,4 @@
-import { BN } from 'ethereumjs-util'
+import { BN } from 'sbr-util'
 
 export interface genesisStatesType {
   names: {
