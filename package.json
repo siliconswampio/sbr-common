@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "description": "Resources common to all Ethereum implementations",
   "license": "MIT",
-  "keywords": [    
+  "keywords": [
     "constants",
     "parameters",
     "genesis",
@@ -61,6 +61,5 @@
   "bugs": {
     "url": "https://github.com/siliconswampio/sbr-common/issues"
   },
-  "maintainers": [
-  ]
+  "maintainers": []
 }
