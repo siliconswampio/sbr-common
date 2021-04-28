@@ -51,6 +51,16 @@
             "forkHash": "0x97ba7ec4"
         },
         {
+            "name": "muirGlacier",
+            "block": 0,
+            "forkHash": "0x97ba7ec4"
+        },
+        {
+            "name": "berlin",
+            "block": 0,
+            "forkHash": "0x97ba7ec4"
+        },
+        {
             "name": "next",
             "block": 99999999999
         }

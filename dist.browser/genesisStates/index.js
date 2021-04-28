@@ -9,6 +9,7 @@ var genesisStates = {
         '42': 'kovan',
         '5': 'goerli',
         '34180983699157880': 'yolov3',
+        '8675309': 'sbr'
     },
     mainnet: require('./mainnet.json'),
     ropsten: require('./ropsten.json'),
@@ -16,6 +17,7 @@ var genesisStates = {
     kovan: require('./kovan.json'),
     goerli: require('./goerli.json'),
     yolov3: require('./yolov3.json'),
+    sbr: require('./sbr.json'),
 };
 /**
  * Returns the genesis state by network ID
